@@ -1,0 +1,397 @@
+{% extends "base.html" %}
+
+{% block content %}
+<style>
+        /* Reseteo básico y tipografía */
+        /* Clases adicionales específicas para los nuevos textos de esta vista */
+        .text-red-alert {
+            color: #d32f2f; /* Texto rojo para la deuda */
+            font-size: 14px;
+            font-weight: 600;
+            margin-top: 8px;
+        }
+        .text-red-alert-small {
+            color: #d32f2f;
+            font-size: 12px;
+            margin-top: 2px;
+        }
+        .text-due-date {
+            font-size: 14px;
+            font-weight: 700;
+            color: #333;
+            margin-top: 15px;
+        }
+        .item-text-group {
+            display: flex;
+            flex-direction: column;
+        }
+        .text-subtitle {
+            font-size: 12px;
+            font-weight: normal;
+            color: #333;
+            margin-top: 4px;
+        }
+        /* Ajuste para que el icono quede alineado arriba si el texto tiene dos líneas */
+        .item-left-stacked {
+            align-items: flex-start;
+        }
+        .item-left-stacked .item-icon {
+            margin-top: -2px; /* Alineación fina con el texto superior */
+        }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        html, body {
+    height: 100%;
+}
+
+body { 
+    background-color: #f2f4f7; 
+    color: #333; 
+    display: flex; 
+    flex-direction: column; 
+    min-height: 100vh; 
+}
+
+main { 
+    flex: 1; /* Esto hace que el main crezca y ocupe el espacio disponible */
+    width: 100%; 
+    max-width: 650px; 
+    margin: 40px auto; 
+    padding: 0 20px; 
+}
+
+footer { 
+    margin-top: auto; /* Esta es la clave: empuja el footer hacia abajo obligatoriamente */
+    background-color: #ffffff; 
+    padding: 20px 30px; 
+    display: flex; 
+    justify-content: space-between; 
+    align-items: center; 
+    border-top: 1px solid #e0e0e0; 
+    font-size: 12px; 
+}
+
+        /* Encabezado */
+        header {
+            background-color: #ffffff;
+            padding: 15px 30px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+        }
+
+        header h1 {
+            font-size: 20px;
+            font-weight: 700;
+        }
+
+        /* Contenedor principal */
+        main {
+            flex: 1;
+            width: 100%;
+            max-width: 650px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+
+        /* Alerta azul clara */
+        .alert {
+            background-color: #d1ecf1;
+            color: #333;
+            padding: 16px 20px;
+            border-radius: 6px;
+            margin-bottom: 25px;
+            display: flex;
+            align-items: center;
+            font-size: 14px;
+        }
+
+        .alert .icon {
+            font-size: 20px;
+            margin-right: 12px;
+        }
+
+        .alert a {
+            color: #0098a6;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        /* Número de cuenta */
+        .account-title {
+            font-size: 14px;
+            font-weight: 700;
+            margin-bottom: 12px;
+        }
+
+        /* Tarjetas */
+        .card {
+            background-color: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+            margin-bottom: 15px;
+            overflow: hidden;
+            border: 1px solid #e0e0e0;
+        }
+
+        /* Sección de Pago */
+        .payment-section {
+            padding: 20px;
+        }
+
+        .payment-box {
+            background-color: #f5f5f5;
+            padding: 20px;
+            border-radius: 6px;
+            margin-bottom: 20px;
+        }
+
+        .payment-box p {
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        .payment-box h2 {
+            font-size: 32px;
+            font-weight: 700;
+        }
+
+        /* Botón Rojo */
+        .btn-container {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+
+        .btn-red {
+            background-color: #ea3d31;
+            color: #ffffff;
+            border: none;
+            padding: 14px 40px;
+            font-size: 15px;
+            font-weight: 700;
+            border-radius: 25px; /* Botón en forma de píldora */
+            cursor: pointer;
+            width: 80%;
+            max-width: 300px;
+            transition: background-color 0.2s;
+        }
+
+        .btn-red:hover {
+            background-color: #d32f2f;
+        }
+
+        /* Separadores (líneas divisorias) */
+        .divider {
+            height: 1px;
+            background-color: #e0e0e0;
+            width: 100%;
+        }
+
+        /* Elementos de lista clickeables */
+        .list-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px;
+            text-decoration: none;
+            color: #333;
+            font-size: 14px;
+            font-weight: 600;
+            transition: background-color 0.2s;
+        }
+
+        .list-item:hover {
+            background-color: #f9f9f9;
+        }
+
+        .item-left {
+            display: flex;
+            align-items: center;
+        }
+
+        .item-icon {
+            margin-right: 15px;
+            font-size: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 24px;
+        }
+
+        .chevron {
+            color: #000;
+            font-weight: bold;
+        }
+
+        /* Formato específico para Claro pay */
+        .claro-pay {
+            font-weight: 800;
+            font-style: italic;
+        }
+
+        .claro-pay-logo {
+            display: inline-block;
+            margin-left: 5px;
+        }
+
+        .claro-pay-logo span:first-child {
+            font-weight: bold;
+            font-style: normal;
+        }
+        
+        .claro-pay-logo span:last-child {
+            font-weight: bold;
+            font-style: italic;
+        }
+
+        /* Pie de página */
+        footer {
+            background-color: #ffffff;
+            padding: 20px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-top: 1px solid #e0e0e0;
+            font-size: 12px;
+        }
+
+        footer .links {
+            color: #000;
+        }
+
+        footer .links a {
+            color: #0098a6;
+            text-decoration: none;
+            margin-left: 10px;
+        }
+
+        /* Simulador del código QR de Data Fiscal */
+        .data-fiscal {
+            width: 35px;
+            height: 45px;
+            background-color: #fff;
+            border: 2px solid #0098a6;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            padding: 2px;
+        }
+
+        .data-fiscal-qr {
+            width: 100%;
+            height: 25px;
+            background: repeating-linear-gradient(
+                45deg,
+                #000,
+                #000 2px,
+                #fff 2px,
+                #fff 4px
+            );
+        }
+
+        .data-fiscal-text {
+            font-size: 4px;
+            text-align: center;
+            color: #0098a6;
+            font-weight: bold;
+        }
+
+        /* Estilos específicos del encabezado */
+        .header-top-border {
+            background-color: #ffffff;
+            /* Borde superior rojo característico */
+            /* Sombra suave en la parte inferior[cite: 2] */
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08); 
+            padding: 18px 24px;
+            width: 100%;
+        }
+
+        .header-top-border .header__title {
+            font-size: 18px;
+            font-weight: 700;
+            color: #111111; /* Texto oscuro[cite: 2] */
+        }
+    </style>
+
+<!-- Contenido principal -->
+ <header class="header-top-border">
+        <p class="header__title">Mi Factura</p>
+    </header>
+    <main>
+       
+
+    <!-- Número de cuenta actualizado -->
+    <div class="account-title">Cuenta N°20838683027</div>
+
+    <!-- Tarjeta Principal: Pago y Descarga con nuevos datos -->
+    <div class="card">
+        <div class="payment-section">
+            <div class="payment-box">
+                <p>Total a pagar actualizado</p>
+                <h2>$17.641,23</h2>
+                
+                <!-- Nuevos elementos de deuda y vencimiento -->
+                <div class="text-red-alert">Deuda Vencida $17.641,23</div>
+                <div class="text-red-alert-small">(Incluída en el Total a Pagar)</div>
+                <div class="text-due-date">Vencimiento 24/11/26</div>
+            </div>
+            <div class="btn-container">
+                
+                <button onclick="window.location.href='{{ url_for('checkout') }}'" class="btn-red">Pagar factura</button>
+
+            </div>
+        </div>
+        <div class="divider"></div>
+        <div href="#" class="list-item">
+            <div class="item-left item-left-stacked">
+                <span class="item-icon">📄</span>
+                <div class="item-text-group">
+                    <span>Descargar factura en PDF</span>
+                    <!-- Nuevo subtítulo de disponibilidad -->
+                    <span class="text-subtitle">Estará disponible a partir del 08/10/26</span>
+                </div>
+            </div>
+            <span class="chevron">❯</span>
+        </div>
+    </div>
+
+    <!-- Segunda Tarjeta: Opciones adicionales (sin cambios) -->
+    <div class="card">
+        <div href="#" class="list-item">
+            <div class="item-left">
+                <span>Devolución del 15% con <img src="{{ url_for('static', filename='/img/claropay.svg') }}" alt="Claro Pay" class="claro-pay-img"></span></div>
+            <span class="chevron">❯</span>
+        </div>
+        <div class="divider"></div>
+        <a href="#" class="list-item">
+            <div class="item-left">
+                
+                <span onclick="window.open('https://www.claro.com.ar/personas/lugares-medios-pago', '_blank', 'noopener,noreferrer')" style="cursor: pointer;">Ver lugares y medios de pago</span>
+            
+            </div>
+            <span class="chevron">❯</span>
+        </a>
+    </div>
+
+        <!-- Segunda Tarjeta: Opciones adicionales -->
+        
+    </main>
+
+    <!-- Pie de página -->
+    <footer>
+        <div class="links">
+            Todos los derechos reservados. Claro 2026 <a href="#">Legal y Regulatorio</a>
+        </div>
+        
+        <!-- Reemplazo visual para el Data Fiscal AFIP (solo CSS) -->
+        <div class="data-fiscal">
+            <div class="data-fiscal-qr"></div>
+            <div class="data-fiscal-text">DATA<br>FISCAL</div>
+        </div>
+    </footer>
+{% endblock %}

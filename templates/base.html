@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="es-ES">
+<head>
+  <meta charset="utf-8">
+<title>Packs Ya | Claro Argentina</title>
+<link rel='shortcut icon' type='image/x-icon' href="{{ url_for('static', filename='img/favicon.ico') }}" />
+
+<link rel="stylesheet" href="{{ url_for('static', filename='css/smartphone.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/estilaso.css') }}">
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<meta name="description" content="Descargá el botón en tu celular y comprá tu pack en un solo click. Es rápido y simple.">
+<meta property="og:title" content="Packs YA">
+<meta property="og:description" content="Descargá el botón en tu celular y comprá tu pack en un solo click. Es rápido y simple.">
+
+
+</head>
+
+{% block header %}
+    <header class="header">
+        <p class="header__title">Ingresar nueva tarjeta</p>
+    </header>
+    <header class="header">
+        <a href="/" ><img src="{{ url_for('static', filename='/img/icono-home-256.png') }}" style="width: 40px; height:40px;" alt=""></a>
+            
+        <p class="header__title">{% block title %}Claro{% endblock %}</p>
+        <div class="number_container">
+          <p class="number_user_letter">{{ number }}</p>
+        </div>
+    </header>
+
+    {% endblock %}
+
+    
+    <body>
+      {% block content %}{% endblock %}
+    </body>
+    
+
+
+</html>

